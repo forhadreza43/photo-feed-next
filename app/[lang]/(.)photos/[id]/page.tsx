@@ -1,6 +1,7 @@
 import Modal from "@/components/Modal";
 import PhotoDetails from "@/components/PhotoDetails";
 import { Locale } from "../../dictionaries";
+import PhotoDetailsModal from "@/components/PhotoDetailsModal";
 
 export default async function PhotoModal({
   params,
@@ -11,10 +12,14 @@ export default async function PhotoModal({
 
   return (
     
-    <div className="w-full h-full flex justify-center items-center relative">
-        <Modal>
+    <div className="">
+        {/* <Modal>
           <PhotoDetails id={id} lang={lang} />
-        </Modal>
+        </Modal> */}
+        <PhotoDetailsModal>
+            <PhotoDetails id={id} lang={lang} />
+        </PhotoDetailsModal>
+          
     </div>
   );
 }
