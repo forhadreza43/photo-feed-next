@@ -28,6 +28,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${roboto.variable} antialiased`}>
         <Navbar />
         <div className="container my-4 lg:my-8">{children}</div>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

@@ -30,7 +30,8 @@ export default async function PhotoDetails({
           style={{
             objectFit: "cover",
             objectPosition: "center",
-          }}          
+          }}
+          sizes="( max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className="p-6 border rounded-xl col-span-12 lg:col-span-4  ">
