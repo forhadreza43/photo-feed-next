@@ -1,6 +1,6 @@
 # Photo Feed
 
-A simple photo feed application built with modern web technologies. Users can view, upload, and interact with photos in a dynamic feed.
+A simple photo feed application built with Next.js specially focused on next.js intercepting routing features.
 
 ## Features
 
