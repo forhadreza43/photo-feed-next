@@ -12,7 +12,14 @@ export default async function PhotoDetails({
   id: string;
   lang: Locale;
 }) {
-  const photo = await fetch(`${process.env.BASE_API_URL}/photos/${id}`).then(
+  const baseUrl =
+     process.env.BASE_API_URL ||
+     `${
+        process.env.VERCEL_URL
+           ? 'https://' + process.env.VERCEL_URL
+           : 'http://localhost:3000'
+     }`;
+  const photo = await fetch(`${baseUrl}/photos/${id}`).then(
     (res) => res.json()
   );
 
