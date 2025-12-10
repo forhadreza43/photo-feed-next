@@ -1,106 +1,118 @@
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
-import Image from "next/image";
-import React from "react";
-import follow from "@/public/follow.svg";
-import heart from "@/public/heart.svg";
-import save from "@/public/save.svg";
-import share from "@/public/share.svg";
+import { getDictionary, Locale } from '@/app/[lang]/dictionaries';
+import Image from 'next/image';
+import React from 'react';
+import follow from '@/public/follow.svg';
+import heart from '@/public/heart.svg';
+import save from '@/public/save.svg';
+import share from '@/public/share.svg';
+import { getApiUrl } from '@/util/api-url';
 export default async function PhotoDetails({
-  id,
-  lang,
+   id,
+   lang,
 }: {
-  id: string;
-  lang: Locale;
+   id: string;
+   lang: Locale;
 }) {
-  const baseUrl =
-     process.env.BASE_API_URL ||
-     `${
-        process.env.VERCEL_URL
-           ? 'https://' + process.env.VERCEL_URL
-           : 'http://localhost:3000'
-     }`;
-  const photo = await fetch(`${baseUrl}/photos/${id}`).then(
-    (res) => res.json()
-  );
+  //  const baseUrl =
+  //     process.env.BASE_API_URL ||
+  //     `${
+  //        process.env.VERCEL_URL
+  //           ? 'https://' + process.env.VERCEL_URL
+  //           : 'http://localhost:3000'
+  //     }`;
+    const baseUrl = await getApiUrl();
+   const photo = await fetch(`${baseUrl}/api/photos/${id}`).then((res) =>
+      res.json()
+   );
 
-  const dictionary = await getDictionary(lang);
+   const dictionary = await getDictionary(lang);
 
-  return (
-    <div className="grid grid-cols-12 gap-4 2xl:gap-10">
-      <div className="col-span-12 lg:col-span-8 border rounded-xl relative overflow-hidden">
-        <Image
-          className="max-w-full h-full max-h-[70vh] mx-auto"
-          src={photo.url}
-          alt={photo.title}
-          fill
-          priority
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-          sizes="( max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </div>
-      <div className="p-6 border rounded-xl col-span-12 lg:col-span-4  ">
-        <h2 className="text-lg lg:text-2xl font-bold mb-2">{photo.title}</h2>
-        <div className="text-xs lg:text-sm text-black/60 mb-6">
-          {photo.tags.map((tag: string) => `#${tag} `)}
-        </div>
-        <div className="space-y-2.5 text-black/80 text-xs lg:text-sm">
-          <div className="flex justify-between">
-            <span>{dictionary.views}</span>
-            <span className="font-bold">{photo.views}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>{dictionary.share}</span>
-            <span className="font-bold">{photo.shares}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>{dictionary.uploadedOn}</span>
-            <span className="font-bold">{photo.uploaded}</span>
-          </div>
-        </div>
-        <div className="mt-6">
-          <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center gap-3">
-              <Image
-                className="size-12 lg:size-14 rounded-full border"
-                src={photo.author.avatar}
-                alt={photo.author.name}
-                width={56}
-                height={56}
-              />
-              <div className="spacy-y-3">
-                <h6 className="lg:text-lg font-bold">{photo.author.name}</h6>
-                <p className="text-black/60 text-xs lg:text-sm">
-                  {photo.author.followers} {dictionary.followers}
-                </p>
-              </div>
+   return (
+      <div className="grid grid-cols-12 gap-4 2xl:gap-10">
+         <div className="col-span-12 lg:col-span-8 border rounded-xl relative overflow-hidden">
+            <Image
+               className="max-w-full h-full max-h-[70vh] mx-auto"
+               src={photo.url}
+               alt={photo.title}
+               fill
+               priority
+               style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+               }}
+               sizes="( max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+         </div>
+         <div className="p-6 border rounded-xl col-span-12 lg:col-span-4  ">
+            <h2 className="text-lg lg:text-2xl font-bold mb-2">
+               {photo.title}
+            </h2>
+            <div className="text-xs lg:text-sm text-black/60 mb-6">
+               {photo.tags.map((tag: string) => `#${tag} `)}
             </div>
-            <button className="flex items-center gap-1.5 text-black/60 text-xs xl:text-sm">
-              <Image src={follow} alt="follow icon" className="w-5 h-5" />
-              {dictionary.follow}
-            </button>
-          </div>
-          <p className="text-xs lg:text-sm text-black/60">{photo.author.bio}</p>
-        </div>
-        <div className="mt-6">
-          <div className="flex items-stretch gap-3">
-            <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
-              <Image src={heart} alt="heart icon" className="w-5 h-5" />
-              {photo.likes}
-            </button>
-            <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
-              <Image src={save} alt="save icon" className="w-5 h-5" />
-              {dictionary.save}
-            </button>
-            <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
-              <Image src={share} alt="share icon" className="w-5 h-5" />
-              {dictionary.share}
-            </button>
-          </div>
-        </div>
+            <div className="space-y-2.5 text-black/80 text-xs lg:text-sm">
+               <div className="flex justify-between">
+                  <span>{dictionary.views}</span>
+                  <span className="font-bold">{photo.views}</span>
+               </div>
+               <div className="flex justify-between">
+                  <span>{dictionary.share}</span>
+                  <span className="font-bold">{photo.shares}</span>
+               </div>
+               <div className="flex justify-between">
+                  <span>{dictionary.uploadedOn}</span>
+                  <span className="font-bold">{photo.uploaded}</span>
+               </div>
+            </div>
+            <div className="mt-6">
+               <div className="flex justify-between items-center mb-3">
+                  <div className="flex items-center gap-3">
+                     <Image
+                        className="size-12 lg:size-14 rounded-full border"
+                        src={photo.author.avatar}
+                        alt={photo.author.name}
+                        width={56}
+                        height={56}
+                     />
+                     <div className="spacy-y-3">
+                        <h6 className="lg:text-lg font-bold">
+                           {photo.author.name}
+                        </h6>
+                        <p className="text-black/60 text-xs lg:text-sm">
+                           {photo.author.followers} {dictionary.followers}
+                        </p>
+                     </div>
+                  </div>
+                  <button className="flex items-center gap-1.5 text-black/60 text-xs xl:text-sm">
+                     <Image
+                        src={follow}
+                        alt="follow icon"
+                        className="w-5 h-5"
+                     />
+                     {dictionary.follow}
+                  </button>
+               </div>
+               <p className="text-xs lg:text-sm text-black/60">
+                  {photo.author.bio}
+               </p>
+            </div>
+            <div className="mt-6">
+               <div className="flex items-stretch gap-3">
+                  <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
+                     <Image src={heart} alt="heart icon" className="w-5 h-5" />
+                     {photo.likes}
+                  </button>
+                  <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
+                     <Image src={save} alt="save icon" className="w-5 h-5" />
+                     {dictionary.save}
+                  </button>
+                  <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
+                     <Image src={share} alt="share icon" className="w-5 h-5" />
+                     {dictionary.share}
+                  </button>
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-  );
+   );
 }

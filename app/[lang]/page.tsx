@@ -1,6 +1,7 @@
 import PhotoList from "@/components/PhotoList";
 import { Suspense } from "react";
 import { Locale } from "./dictionaries";
+import GallerySkeleton from "@/components/skeleton/GallerySkeleton";
 
 export default async function Home({
   params,
@@ -11,7 +12,7 @@ export default async function Home({
 
   return (
     <div>
-      <Suspense fallback={<div>Photos Loading...</div>}>
+      <Suspense fallback={<GallerySkeleton />}>
         <PhotoList lang={lang} />
       </Suspense>
     </div>

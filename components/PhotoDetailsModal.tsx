@@ -1,5 +1,5 @@
 "use client";
-import { Button, Dialog, DialogPanel } from "@headlessui/react";
+import {Dialog, DialogPanel } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
 import xmark from "@/public/xmark.svg";
